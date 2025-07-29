@@ -1,0 +1,8 @@
+fastapi[all]
+uvicorn
+python-dotenv
+pypdf
+pinecone-client
+openai
+tiktoken
+requests
