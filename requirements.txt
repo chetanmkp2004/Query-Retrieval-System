@@ -6,3 +6,6 @@ pinecone-client
 openai
 tiktoken
 requests
+langchain
+sentence-transformers
+"pinecone-client[grpc]"
