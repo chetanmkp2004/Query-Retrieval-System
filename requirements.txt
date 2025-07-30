@@ -9,3 +9,5 @@ requests
 langchain
 sentence-transformers
 "pinecone-client[grpc]"
+pytest
+httpx
