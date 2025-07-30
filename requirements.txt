@@ -9,3 +9,4 @@ requests
 langchain
 sentence-transformers
 "pinecone-client[grpc]"
+typing
