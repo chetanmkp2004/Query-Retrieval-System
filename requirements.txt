@@ -12,6 +12,3 @@ sentence-transformers
 "pinecone-client[grpc]"
 pytest
 httpx
-=======
-pinecone-client[grpc]
->>>>>>> 2113dc0 (modified:.env, .gitignore,requirements.py new: llm_test.py, models.py, prompts.py)
