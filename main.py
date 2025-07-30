@@ -1,35 +1,22 @@
 # main.py
-import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel
-from typing import List
+
+# Import the models from your new models.py file
+from models import QuestionRequest, AnswerResponse
 from utils.document_parser import fetch_document, extract_text_from_pdf, chunk_text
 from services.vector_store import VectorStoreManager
 
-# Initialize the FastAPI app
 app = FastAPI(title="HackRx LLM Retrieval System")
 
 # Initialize our services (they will be shared across all requests)
 vector_store_manager = VectorStoreManager()
 
-# --- Models: Defines the structure of our JSON requests and responses ---
-class QuestionRequest(BaseModel):
-    documents: str  # URL of the document
-    questions: List[str]
-
-class AnswerResponse(BaseModel):
-    answers: List[str]
-
 # --- Security ---
-# This is a simple security check. The request must have a specific "Bearer Token".
 security = HTTPBearer()
-# This is the secret token required to access the API. Keep it safe.
-# In a real app, this would be in a .env file.
 AUTH_TOKEN = "e33ecffb686ac4409ef84a4cebb13b83e58b120976b3e7b73481e7cc3daf20de"
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """Verifies the token from the request header."""
     if credentials.credentials != AUTH_TOKEN:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -40,7 +27,6 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 # --- API Endpoints ---
 @app.get("/")
 def read_root():
-    """A simple endpoint to check if the server is running."""
     return {"message": "LLM-Powered Query-Retrieval System is running!"}
 
 @app.post("/api/v1/hackrx/run", response_model=AnswerResponse)

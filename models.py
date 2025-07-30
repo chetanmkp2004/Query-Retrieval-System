@@ -1,7 +1,12 @@
 from pydantic import BaseModel
 from typing import List, Dict, Any
 
-# (The Team Lead will add QuestionRequest and AnswerResponse here)
+class QuestionRequest(BaseModel):
+    documents: str  # URL of the document
+    questions: List[str]
+
+class AnswerResponse(BaseModel):
+    answers: List[str]
 
 # Your model for holding the parsed information from a question
 class ParsedQuery(BaseModel):
