@@ -3,8 +3,6 @@ from dotenv import load_dotenv
 import openai
 
 load_dotenv()
-
-# Correct API base URL
 api_base = "https://openrouter.ai/api/v1"
 api_key = os.getenv("OPENROUTER_API_KEY")
 
