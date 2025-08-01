@@ -6,11 +6,15 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from models import QuestionRequest, AnswerResponse
 from utils.document_parser import fetch_document, extract_text_from_pdf, chunk_text
 from services.vector_store import VectorStoreManager
+from services.llm_parser import LLMParser
+from services.answer_generator import AnswerGenerator
 
 app = FastAPI(title="HackRx LLM Retrieval System")
 
 # Initialize our services (they will be shared across all requests)
 vector_store_manager = VectorStoreManager()
+llm_parser = LLMParser()
+answer_generator = AnswerGenerator()
 
 # --- Security ---
 security = HTTPBearer()
@@ -37,18 +41,27 @@ async def run_submission(request: QuestionRequest, token: str = Depends(verify_t
     print(f"Received request for document: {request.documents}")
 
     # --- Step 1: Document Processing (Integration with Member 3's work) ---
-    # These functions are just skeletons for now. Member 3 will build the real ones.
     temp_filepath = fetch_document(request.documents)
     document_text = extract_text_from_pdf(temp_filepath)
     chunks = chunk_text(document_text)
     print(f"Processed {len(chunks)} chunks from the document.")
 
     # --- Step 2: Indexing (Integration with Member 3's work) ---
-    # Once chunks are ready, we index them in our vector store.
     vector_store_manager.index_document_chunks(chunks)
     print("Document indexing process initiated.")
 
-    # This is a placeholder. We will build the real logic here in the coming days.
-    dummy_answers = [f"Dummy answer for question {i+1}" for i in range(len(request.questions))]
+    # --- Step 3: Query Processing and Answering ---
+    final_answers = []
+    for question in request.questions:
+        # 1. Parse the query (Member 2's work)
+        parsed_query = llm_parser.parse_query(question)
 
-    return AnswerResponse(answers=dummy_answers)
+        # 2. Retrieve relevant chunks from vector DB (Member 3's work)
+        retrieved_chunks = vector_store_manager.query_vectors(question)
+
+        # 3. Generate the answer using the chunks (Member 2's work)
+        final_answer_text = answer_generator.generate_answer(question, parsed_query, retrieved_chunks)
+
+        final_answers.append(final_answer_text)
+
+    return AnswerResponse(answers=final_answers)
