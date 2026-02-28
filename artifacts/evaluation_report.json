@@ -1,0 +1,106 @@
+{
+  "best_model_name": "SoftVotingEnsembleClassifier",
+  "problem_type": "classification",
+  "target_column": "Heart Disease",
+  "metric_objective": "accuracy",
+  "cv_scores": {},
+  "current_metrics": {
+    "HistGradientBoostingClassifier": {
+      "CV_Accuracy": 0.8870178571428571,
+      "CV_Accuracy_STD": 0.0006235527461337376,
+      "Train_Accuracy": 0.8888511904761904,
+      "Train_F1": 0.8889295853522409
+    },
+    "XGBClassifier": {
+      "CV_Accuracy": 0.887234126984127,
+      "CV_Accuracy_STD": 0.0007231972748233459,
+      "Train_Accuracy": 0.8922321428571428,
+      "Train_F1": 0.8921453715894854
+    },
+    "LGBMClassifier": {
+      "CV_Accuracy": 0.8871011904761905,
+      "CV_Accuracy_STD": 0.0006135220941745493,
+      "Train_Accuracy": 0.8903234126984128,
+      "Train_F1": 0.8904045292211844
+    },
+    "SoftVotingEnsembleClassifier": {
+      "CV_Accuracy": 0.8877480158730159,
+      "CV_Accuracy_STD": 0.0006449786178514157
+    }
+  },
+  "final_holdout_metrics": {
+    "Accuracy": 0.8898412698412699
+  },
+  "model_params": {},
+  "improvement_timeline": [
+    {
+      "iteration": 0,
+      "best_model": "SoftVotingEnsembleClassifier",
+      "best_score": 0.8879523809523809,
+      "delta_pct": 100.0
+    },
+    {
+      "iteration": 1,
+      "best_model": "SoftVotingEnsembleClassifier",
+      "best_score": 0.8879880952380952,
+      "delta_pct": 0.004022094706919351
+    },
+    {
+      "iteration": 2,
+      "best_model": "SoftVotingEnsembleClassifier",
+      "best_score": 0.8879880952380952,
+      "delta_pct": -0.02703632699207888
+    }
+  ],
+  "stagnation_log": [
+    "iteration=0 delta_pct=100.0000% no_improvement_rounds=0",
+    "iteration=1 delta_pct=0.0040% no_improvement_rounds=1",
+    "iteration=2 delta_pct=-0.0270% no_improvement_rounds=2"
+  ],
+  "encoding_choice": "onehot",
+  "encoding_cv_scores": {
+    "onehot": 0.0
+  },
+  "feature_expansion_decisions": {
+    "HistGradientBoostingClassifier": {
+      "model_family": "tree",
+      "inverse_features": false,
+      "random_trees_embedding": false
+    },
+    "XGBClassifier": {
+      "model_family": "tree",
+      "inverse_features": false,
+      "random_trees_embedding": false
+    },
+    "LGBMClassifier": {
+      "model_family": "tree",
+      "inverse_features": false,
+      "random_trees_embedding": false
+    }
+  },
+  "ensemble_cv_score": 0.8877480158730159,
+  "ensemble_cv_std": 0.0006449786178514157,
+  "ensemble_improvement_pct": 0.05792032489053687,
+  "model_prediction_correlation": {
+    "HistGradientBoostingClassifier": {
+      "HistGradientBoostingClassifier": 1.0,
+      "XGBClassifier": 0.9613576753081605,
+      "LGBMClassifier": 0.9824723381028035
+    },
+    "XGBClassifier": {
+      "HistGradientBoostingClassifier": 0.9613576753081606,
+      "XGBClassifier": 1.0,
+      "LGBMClassifier": 0.9633882256173645
+    },
+    "LGBMClassifier": {
+      "HistGradientBoostingClassifier": 0.9824723381028035,
+      "XGBClassifier": 0.9633882256173645,
+      "LGBMClassifier": 1.0
+    }
+  },
+  "dropped_correlated_models": [],
+  "target_transform_decision": "not_applicable",
+  "feature_pruning_decision": "kept=6, dropped=2, reason=dropped_bottom_30pct=2",
+  "classification_threshold": 0.5,
+  "positive_class_label": null
+}
